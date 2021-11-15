@@ -10,7 +10,6 @@
   "author": "Jowoosung",
   "license": "ISC",
   "dependencies": {
-    "@react-three/fiber": "^7.0.19",
     "bcrypt": "^5.0.1",
     "body-parser": "^1.19.0",
     "concurrently": "^6.2.1",
