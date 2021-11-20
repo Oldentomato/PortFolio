@@ -2,6 +2,7 @@ import React,{Suspense} from "react"
 import {Canvas} from "react-three-fiber"
 import {Html, useGLTFLoader, OrbitControls, Plane} from "drei"
 import {Section} from "../../section"
+import {Link} from "react-router-dom"
 
 
 function Model(){
@@ -56,7 +57,7 @@ function LandingPage(){
     return(
         <div id="world">
             <Canvas colorManagement camera={{position:[0,0,170], fov:70}}>
-                <OrbitControls enableZoom={false} />
+                {/* <OrbitControls enableZoom={false} /> */}
                 <Lights/>
                 <Plane scale={[100,10,10]} rotation={[0,0,0]}/>
                 <Suspense fallback={null}>
@@ -64,11 +65,14 @@ function LandingPage(){
                     <Html position={[0,0,0]}>
                         <div style={{background:"rgb(0,0,0,0.5)"}}>
                             <h2 style={{color:"#fff",right:"50vw"}}>Test</h2>
+                            
                         </div>
+                        
                         
                     </Html>
                 </Suspense>
             </Canvas>
+            {/* <Link to="/Boards" style={{color:"#fff"}}>Boards</Link> */}
         </div>
     )
 }

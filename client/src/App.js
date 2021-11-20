@@ -1,16 +1,20 @@
-import {Switch, Route} from "react-router-dom"
+import {Route,Routes, BrowserRouter} from "react-router-dom"
+import React from "react"
+import NavBar from "../src/components/views/NavBar/NavBar"
 import LandingPage from "../src/components/views/LandingPage/LandingPage"
 import BoardPage from "../src/components/views/BoardPage/BoardPage"
 import "./css/App.css"
 
 export default function App() {
   return (
-    <div>
-      <Switch>
-        <Route exact path="/" component={LandingPage}/>
-        <Route exact path="/Boards" component={BoardPage}/>
-      </Switch>
-    </div>
+    <BrowserRouter>
+      <NavBar/> 
+        <Routes>
+          <Route path="/" element={<LandingPage/>}/>
+          <Route path="/Boards" element={<BoardPage/>}/>
+        </Routes>
+    </BrowserRouter>
+
 
   );
 }

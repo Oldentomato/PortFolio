@@ -1,9 +1,11 @@
 * {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
 }
 
-html,
-body,
+
 #world {
   width: 100vw;
   height: 100vh;
@@ -15,11 +17,65 @@ body,
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  /* overflow: hidden; */
   background: #272727;
 }
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, helvetica neue, helvetica, ubuntu, roboto, noto,
     segoe ui, arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #000;
+}
+
+.box{
+  position: relative;
+  width: 200px;
+  height: 200px;
+  transform-style: preserve-3d;
+  animation: ScrollAni 20s infinite linear;
+}
+ 
+@keyframes ScrollAni{
+  0%{
+    transform: perspective(1000px) rotateY(0deg);
+  }
+  100%{
+    transform: perspective(1000px) rotateY(360deg);
+  }
+}
+
+.box span{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform-origin: center;
+  transform-style: preserve-3d;
+  transform: rotateY(calc(var(--i) * 75deg)) translateZ(400px);
+  -webkit-box-reflect: below 0px linear-gradient(transparent, transparent, #0004);
+}
+
+.box span img{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+
+}
+
+
+.NavBarHeader{
+  color: #fff;
+  font-weight: 800;
+  text-decoration: none;
+  font-size: 2.5em;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  
 }
