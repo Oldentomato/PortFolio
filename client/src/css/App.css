@@ -3,6 +3,7 @@
   padding: 0;
   box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
+  scroll-behavior: smooth;
 }
 
 
@@ -23,20 +24,26 @@
 body {
   font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, helvetica neue, helvetica, ubuntu, roboto, noto,
     segoe ui, arial, sans-serif;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  background: #000;
+    min-height: 100vh;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    background: #000;
 }
 
 .box{
   position: relative;
-  width: 200px;
+  width: 100px;
   height: 200px;
+  padding: 100px;
   transform-style: preserve-3d;
   animation: ScrollAni 20s infinite linear;
 }
+
+
+
  
 @keyframes ScrollAni{
   0%{

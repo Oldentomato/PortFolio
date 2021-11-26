@@ -14,7 +14,8 @@ const BoardSchema = mongoose.Schema({
         maxLength: 100
     },
     type:{
-        type: Number
+        type: String,
+        maxLength: 15
     }
 },{timestamps: true})
 
