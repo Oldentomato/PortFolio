@@ -13,8 +13,8 @@ function BoardPage() {
 
     const renderContent = Content.map((file,index)=>{
         return (
-            <div className="Content">
-                <h2 style={{color:'#fff'}}>{file.title}</h2>
+            <div style={{textAlign:'left', marginLeft:'80px', borderColor:'rgb(0,0,0)'}}>
+                <h2 style={{color:'#fff'}}>{index+1}  {file.title}</h2>
             </div>
         )
     })
@@ -29,14 +29,15 @@ function BoardPage() {
                 alert('컨텐트를 가져오는데 실패했습니다')
         })
  
-    },[])
+    },[Category.CatID])
 
     return (
-        <div style={{
-            zIndex: 10
-        }}>
-            <h2 style={{color:'#fff'}}>{Category.CatID}</h2>
-            {renderContent}
+        <div className="BoardPage">
+            <div className="Content">
+                <h2 style={{color:'#fff', margin:'40px', fontSize:'70px', textAlign:'center'}}>{Category.CatID}</h2>
+                {renderContent}
+            </div>
+
 
         </div>
     )

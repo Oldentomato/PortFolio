@@ -24,13 +24,18 @@
 body {
   font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, helvetica neue, helvetica, ubuntu, roboto, noto,
     segoe ui, arial, sans-serif;
-    min-height: 100vh;
-    justify-content: center;
-    align-items: center;
-    display: flex;
+    
+
     overflow-y: scroll;
     overflow-x: hidden;
-    background: #000;
+    background: rgb(27, 27, 27);
+}
+
+.CategoryPage{
+  min-height: 100vh;
+  justify-content: center;
+  align-items: center;
+  display: flex;
 }
 
 .box{
@@ -40,6 +45,7 @@ body {
   padding: 100px;
   transform-style: preserve-3d;
   animation: ScrollAni 20s infinite linear;
+  z-index: 8;
 }
 
 
@@ -84,5 +90,26 @@ body {
   font-size: 2.5em;
   text-transform: uppercase;
   letter-spacing: 2px;
-  
+}
+
+.BoardPage{
+  z-index: 9;
+  background: rgba(0,0,0,0.9);
+}
+
+.BoardPage .Content{
+  display: grid;
+  position: absolute;
+  left: 50%;
+  margin-left: -500px;
+  margin-top: -200px;
+  width: 1000px;
+  height: 750px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 6px;
+  z-index: 9;
+  backdrop-filter: blur(15px);
+  border-top: 1px solid rgba(255,255,255,0.2);
+  border-left: 1px solid rgba(255,255,255,0.2);
+  box-shadow: 5px 5px 30px rgba(0,0,0,0.2);
 }

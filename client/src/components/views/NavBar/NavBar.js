@@ -1,8 +1,9 @@
 import React from 'react'
+import {Link} from 'react-router-dom'
 
 function NavBar() {
 
-    const style={
+    const NavStyle={
         position: "fixed",
         top: "0",
         left: "0",
@@ -12,9 +13,23 @@ function NavBar() {
         zIndex : 10,
         
     }
+
+    const BtnStyle={
+        position: "relative",
+        left: "50%"
+    }
+
+    const NavBtn = () =>{
+        return (
+            <div style={BtnStyle}>
+                <Link to="Create" style={{color:"#fff"}}>Create</Link>
+            </div>
+        )
+    }
     return (
-        <div style={style}>
+        <div style={NavStyle}>
             <header className="NavBarHeader">LABORATORY</header>
+            {NavBtn()}
         </div>
     )
 }

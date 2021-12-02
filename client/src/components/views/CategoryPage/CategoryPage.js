@@ -6,7 +6,7 @@ function CategoryPage() {
 
 
     return (
-        <div>
+        <div className="CategoryPage">
              <Outlet />
             <div className="box">
                 <span style={{"--i" : 1}}><Link to="JavaScript" ><img src={process.env.PUBLIC_URL + '/categoryicons/JSIcon.png'} alt="Javascript"/></Link></span>

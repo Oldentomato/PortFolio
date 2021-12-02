@@ -55,7 +55,9 @@ const Lights = () => {
 
 function LandingPage(){
     return(
+        <div>
         <div id="world">
+          
             <Canvas colorManagement camera={{position:[0,0,170], fov:70}}>
                 <OrbitControls enableZoom={false} />
                 <Lights/>
@@ -67,13 +69,18 @@ function LandingPage(){
                             <h2 style={{color:"#fff",right:"50vw"}}>Test</h2>
                             
                         </div>
-                        
+                      
                         
                     </Html>
                 </Suspense>
             </Canvas>
-            {/* <Link to="/Boards" style={{color:"#fff"}}>Boards</Link> */}
+           
         </div>
+            <div>
+                <Link to="Category" style={{color:"#fff"}}>Category</Link>
+            </div>
+        </div>
+
     )
 }
 
