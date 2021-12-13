@@ -22,13 +22,12 @@
 }
 
 body {
+  
   font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, helvetica neue, helvetica, ubuntu, roboto, noto,
     segoe ui, arial, sans-serif;
-    
-
     overflow-y: scroll;
     overflow-x: hidden;
-    background: rgb(27, 27, 27);
+    background: #272727 !important;
 }
 
 .CategoryPage{
@@ -113,3 +112,4 @@ body {
   border-left: 1px solid rgba(255,255,255,0.2);
   box-shadow: 5px 5px 30px rgba(0,0,0,0.2);
 }
+

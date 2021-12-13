@@ -2,14 +2,11 @@ const mongoose = require('mongoose')
 
 
 const BoardSchema = mongoose.Schema({
-    writer:{
-        type: String
-    },
     title:{
         type: String,
         maxLength: 15
     },
-    contnet:{
+    content:{
         type: String,
         maxLength: 100
     },

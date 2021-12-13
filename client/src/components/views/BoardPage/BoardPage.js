@@ -1,5 +1,5 @@
 import React,{useEffect,useState} from 'react'
-import {useParams} from 'react-router-dom'
+import {useParams, Link} from 'react-router-dom'
 import axios from 'axios'
 
 function BoardPage() {
@@ -13,9 +13,9 @@ function BoardPage() {
 
     const renderContent = Content.map((file,index)=>{
         return (
-            <div style={{textAlign:'left', marginLeft:'80px', borderColor:'rgb(0,0,0)'}}>
+            <Link to={`${file._id}`} style={{textAlign:'left', marginLeft:'80px', borderColor:'rgb(0,0,0)'}}>
                 <h2 style={{color:'#fff'}}>{index+1}  {file.title}</h2>
-            </div>
+            </Link>
         )
     })
 

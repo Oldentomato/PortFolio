@@ -4,7 +4,9 @@ import NavBar from "../src/components/views/NavBar/NavBar"
 import LandingPage from "../src/components/views/LandingPage/LandingPage"
 import BoardPage from "../src/components/views/BoardPage/BoardPage"
 import CreatePage from "../src/components/views/CreatePage/CreatePage"
+import DetailPage from "../src/components/views/DetailPage/DetailPage"
 import "./css/App.css"
+
 import CategoryPage from "../src/components/views/CategoryPage/CategoryPage"
 
 export default function App() {
@@ -14,8 +16,9 @@ export default function App() {
         <Routes>
           <Route path="/" element={<LandingPage/>}/>
           <Route path="Category/*" element={<CategoryPage/>}>
-            <Route path=":CatID" element={<BoardPage />}/> 
+            <Route path=":CatID/*" element={<BoardPage />}/>
           </Route>
+          <Route path="Category/:CatID/:BoardID" element={<DetailPage />} />
           <Route path="Create" element={<CreatePage/>}/>
         </Routes>
     </BrowserRouter>

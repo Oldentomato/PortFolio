@@ -16,13 +16,14 @@ function NavBar() {
 
     const BtnStyle={
         position: "relative",
-        left: "50%"
+        left: "50%",
     }
 
     const NavBtn = () =>{
         return (
             <div style={BtnStyle}>
                 <Link to="Create" style={{color:"#fff"}}>Create</Link>
+                <Link to="Category" style={{color:"#fff"}}>Category</Link>
             </div>
         )
     }

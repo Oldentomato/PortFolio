@@ -2,7 +2,7 @@ import React,{Suspense} from "react"
 import {Canvas} from "react-three-fiber"
 import {Html, useGLTFLoader, OrbitControls, Plane} from "drei"
 import {Section} from "../../section"
-import {Link} from "react-router-dom"
+
 
 
 function Model(){
@@ -76,9 +76,6 @@ function LandingPage(){
             </Canvas>
            
         </div>
-            <div>
-                <Link to="Category" style={{color:"#fff"}}>Category</Link>
-            </div>
         </div>
 
     )
