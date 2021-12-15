@@ -18,7 +18,7 @@
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  background: #272727;
+  background: #131313;
 }
 
 body {
@@ -93,6 +93,7 @@ body {
 
 .BoardPage{
   z-index: 9;
+  height: 30vh;
   background: rgba(0,0,0,0.9);
 }
 
@@ -102,8 +103,8 @@ body {
   left: 50%;
   margin-left: -500px;
   margin-top: -200px;
-  width: 1000px;
-  height: 750px;
+  width: 130vh;
+  height: 100vh;
   background: rgba(255,255,255,0.05);
   border-radius: 6px;
   z-index: 9;

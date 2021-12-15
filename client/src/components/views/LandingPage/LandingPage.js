@@ -61,7 +61,7 @@ function LandingPage(){
             <Canvas colorManagement camera={{position:[0,0,170], fov:70}}>
                 <OrbitControls enableZoom={false} />
                 <Lights/>
-                <Plane scale={[100,10,10]} rotation={[0,0,0]}/>
+                {/* <Plane scale={[100,10,10]} rotation={[0,0,0]}/> */}
                 <Suspense fallback={null}>
                     <HTMLContent/>
                     <Html position={[0,0,0]}>

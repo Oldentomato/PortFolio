@@ -8,7 +8,7 @@ const BoardSchema = mongoose.Schema({
     },
     content:{
         type: String,
-        maxLength: 100
+        maxLength: 1000
     },
     type:{
         type: String,

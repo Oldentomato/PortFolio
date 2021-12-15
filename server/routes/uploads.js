@@ -18,5 +18,12 @@ router.post('/createcontent',(req,res)=>{
     })
 })
 
+router.post('/getpost',(req,res)=>{
+    Board.findOne({_id: req.body.BoardID},(err,board)=>{
+        if(err) return res.json({success:false, err})
+        return res.status(200).json({success: true, board})
+    })
+})
+
 
 module.exports = router
