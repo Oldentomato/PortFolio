@@ -1,6 +1,7 @@
 import React,{useEffect,useState} from 'react'
-import {useParams} from 'react-router-dom'
+import {useParams, Link} from 'react-router-dom'
 import axios from 'axios'
+import {Button} from 'antd'
 
 function DetailPage() {
     const BoardID = useParams();
@@ -20,10 +21,13 @@ function DetailPage() {
 
     if(File){     
         return (
-            <div style={{position:"absolute", display:"flex"}}>
+            <div style={{position:"absolute", display:"block"}}>
                 <div style={{position:"relative"}}>
-                    <h1 style={{color:"#fff", fontSize:'30px', textAlign:"center",marginTop:"150px"}}>{File.title}</h1>
-                    <p style={{color:"#fff", fontSize:'20px',textAlign:"center",marginLeft:"200px", marginRight:"200px",marginTop:"50px"}}>{File.content}</p>
+                    <h1 style={{color:"#fff", fontSize:'30px', textAlign:"center",marginTop:"150px", marginLeft:'20px', marginRight:'20px'}}>{File.title}</h1>
+                    <pre style={{color:"#fff", fontSize:'20px',textAlign:"left",marginTop:"50px", marginLeft:'40px', marginRight:'40px'}}>{File.content}</pre>
+                </div>
+                <div>
+                    <Button size="large" style={{marginLeft:'40px'}}><Link to={{pathname:`/Modify/${BoardID.BoardID}`}}>Modify</Link></Button>
                 </div>
                
                 

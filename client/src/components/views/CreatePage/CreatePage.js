@@ -28,7 +28,8 @@ function CreatePage() {
     }
 
 
-    const onSubmit = () => {
+    const onSubmit = (e) => {
+        e.preventDefault();
         const data = {
             title: title,
             content: content,
