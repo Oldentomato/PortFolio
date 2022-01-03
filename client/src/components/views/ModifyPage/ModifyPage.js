@@ -6,11 +6,39 @@ import axios from "axios"
 const {TextArea} = Input;
 const {Title} = Typography;
 
-function ModifyPage(props) {
+function ModifyPage() {
     const [title, settitle] = useState("")
     const [content, setcontent] = useState("")
 
     const BoardID = useParams()
+
+    const CheckSentence = () => {
+        var count = 0;
+        var pos = content.indexOf('~')
+        while(pos !== -1){
+            count++;
+            pos = content.indexOf('~',pos + 1)
+        }
+        if(count % 2 === 0){
+            return true
+        }
+        else{
+            return false
+        }
+    }
+    //https://velog.io/@qusehdgns/React-textarea-Tab-%EC%9E%85%EB%A0%A5%EB%B0%9B%EA%B8%B0
+    //참고사이트
+    const codeInputTabHandler = (event) => {
+        if (event.key === 'Tab') {
+            event.preventDefault();
+            //setcontent(content + '\t');
+            
+        }
+    }
+
+    const ClickTxtAreaHandler = (e) =>{
+        console.log(e)
+    }
 
     const titlehandler = (e) =>{
         settitle(e.currentTarget.value)
@@ -45,15 +73,20 @@ function ModifyPage(props) {
             title: title,
             content: content
         }
-        axios.post('/api/board/modifypost',variable)
-        .then(response=>{
-            if(response.data.success){
-                alert("내용수정이 완료되었습니다")
-                window.location.replace('/Category')
-            }else{
-                alert("내용수정에 문제가 발생했습니다")
-            }
-        })
+        if(CheckSentence()){
+            axios.post('/api/board/modifypost',variable)
+            .then(response=>{
+                if(response.data.success){
+                    alert("내용수정이 완료되었습니다")
+                    window.location.replace('/Category')
+                }else{
+                    alert("내용수정에 문제가 발생했습니다")
+                }
+            })
+        }else{
+            alert("문법이 틀렸습니다")
+        }
+ 
     }
 
     useEffect(()=>{
@@ -83,7 +116,10 @@ function ModifyPage(props) {
                 <h2 style={{color:"#fff", marginBottom:"15px", marginTop:"20px"}}>
                     Content
                 </h2>
-                <TextArea style={{width:"100%", height:"200px"}} onChange={contenthandler} value={content} />
+                <TextArea 
+                onKeyDown={codeInputTabHandler}
+                onSelect ={ClickTxtAreaHandler}
+                style={{width:"100%", height:"200px"}} onChange={contenthandler} value={content} />
                 <br/>
                 <div style={{marginTop:"20px"}}>
                     <Button type="primary" size="large" onClick={onSubmit} style={{marginRight: "10px"}}>Modify</Button>

@@ -15,6 +15,21 @@ function CreatePage() {
         settitle(e.currentTarget.value)
     }
 
+    const CheckSentence = () => {
+        var count = 0;
+        var pos = content.indexOf('~')
+        while(pos !== -1){
+            count++;
+            pos = content.indexOf('~',pos + 1)
+        }
+        if(count % 2 === 0){
+            return true
+        }
+        else{
+            return false
+        }
+    }
+
     const contenthandler = (e) => {
         setcontent(e.currentTarget.value)
     }
@@ -37,6 +52,9 @@ function CreatePage() {
         }
         if(title === "" || content === "" || type === ""){
             alert("내용들을 모두 입력하십시오")
+        }
+        else if(!CheckSentence()){
+            alert('코드삽입 문법이 틀렸습니다')
         }
         else{
             axios.post('/api/board/createcontent',data).then(response=>{
@@ -68,7 +86,8 @@ function CreatePage() {
                 <h2 style={{color:"#fff", marginBottom:"15px", marginTop:"20px"}}>
                     Content
                 </h2>
-                <TextArea style={{width:"100%", height:"200px"}} onChange={contenthandler} value={content}/>
+                <TextArea
+                style={{width:"100%", height:"200px"}} onChange={contenthandler} value={content}/>
                 <br/>
                 <div style={{marginTop:"20px"}}>
                     <Button type="primary" size="large" onClick={onSubmit} style={{marginRight: "10px"}}>Submit</Button>

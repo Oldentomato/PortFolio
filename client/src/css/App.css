@@ -114,3 +114,11 @@ body {
   box-shadow: 5px 5px 30px rgba(0,0,0,0.2);
 }
 
+code {
+  background-color: #eee;
+  border: 1px solid #999;
+  display: block;
+  padding: 20px;
+  width: 50%;
+}
+
