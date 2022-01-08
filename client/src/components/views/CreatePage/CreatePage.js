@@ -1,4 +1,4 @@
-import React,{useState, useEffect} from 'react'
+import React,{useState} from 'react'
 import {Button, Form, Input, Typography, Select} from "antd"
 import axios from "axios"
 
@@ -27,6 +27,14 @@ function CreatePage() {
         }
         else{
             return false
+        }
+    }
+
+    const codeInputTabHandler = (event) => {
+        if (event.key === 'Tab') {
+            event.preventDefault();
+            //setcontent(content + '\t');
+            
         }
     }
 
@@ -87,6 +95,7 @@ function CreatePage() {
                     Content
                 </h2>
                 <TextArea
+                onKeyDown={codeInputTabHandler} 
                 style={{width:"100%", height:"200px"}} onChange={contenthandler} value={content}/>
                 <br/>
                 <div style={{marginTop:"20px"}}>
@@ -97,6 +106,7 @@ function CreatePage() {
                         <Option value="Python">Python</Option>
                         <Option value="React">React</Option>
                         <Option value="Unity">Unity</Option>
+                        <Option valuse="Other">Other</Option>
                     </Select>
                 </div>
             </Form>

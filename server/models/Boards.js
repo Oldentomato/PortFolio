@@ -4,7 +4,7 @@ const mongoose = require('mongoose')
 const BoardSchema = mongoose.Schema({
     title:{
         type: String,
-        maxLength: 15
+        maxLength: 30
     },
     content:{
         type: String,

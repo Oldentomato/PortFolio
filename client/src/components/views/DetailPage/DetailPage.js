@@ -7,6 +7,7 @@ function DetailPage() {
     const BoardID = useParams();
     const [title, settitle] = useState("")
     const [splitcontent, setsplitcontent] = useState([])
+    const [isready, setisready] = useState(false)
 
 
     const renderContent = splitcontent.map((content,index)=>{
@@ -36,6 +37,7 @@ function DetailPage() {
             if(response.data.success){
                 settitle(response.data.board.title)
                 setsplitcontent(response.data.board.content.split('~'))
+                setisready(true)
             }
             else
                 alert("게시물을 가져오는데 문제가 발생했습니다")
@@ -43,7 +45,7 @@ function DetailPage() {
         
     },[])
 
-    if(File){     
+    if(isready){     
         return (
             <div style={{position:"relative", display:"block"}}>
                 <div style={{position:"relative"}}>
