@@ -4,9 +4,11 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import {Html, OrbitControls, Stars, useScroll} from "@react-three/drei"
 import {Section} from "../../section"
 
+function Models(){
+    
+}
 
-
-function Model(){
+function ModelDesk(){
     const gltf = useLoader(GLTFLoader,"/Object/test.gltf");
     const scroll = useScroll()
     // useFrame((state,delta)=>{
@@ -17,19 +19,27 @@ function Model(){
     return <primitive object={gltf.scene} dispose={null}/>;
 }
 
+function ModelChair(){
+    const gltf = useLoader(GLTFLoader,".Object/")
+    return <primitive ovject={gltf.scene} dispose={null}/>
+}
+
 const HTMLModel = () => {
     const [Deskhover, setDesk] = useState(false)
     const OnHoverDesk = () => {
-        if(Deskhover)
-            alert("hovered")
+        if(Deskhover){
+
+        }
     }
 
     return (
         <Section factor={1.5} offset={1}>
             <group position={[0,250,0]}>
-            <mesh onPointerOver={()=> setDesk(true)} onPointerOut={() => setDesk(false)} castShadow receiveShadow position={[0,80,0]} scale={[100,100,100]}>
-                <Model/>
-                {Deskhover && <HTMLContent Text="hover" x={0} y={0} z={0}/>}
+            <mesh onPointerOver={()=> setDesk(true)} onPointerOut={() => setDesk(false)} castShadow receiveShadow position={[0,80,0]} 
+            scale={Deskhover?[200,200,200] : [100,100,100]} style={{transition:"2s"}}>
+                {OnHoverDesk()}
+                <ModelDesk/>
+                {Deskhover && <HTMLContent Text="야~~~" x={-0.1} y={0.2} z={0}/>}
             </mesh>
         </group>
         </Section>
