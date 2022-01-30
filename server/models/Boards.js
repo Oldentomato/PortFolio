@@ -13,7 +13,8 @@ const BoardSchema = mongoose.Schema({
     type:{
         type: String,
         maxLength: 15
-    }
+    },
+    imagepath:[String]
 },{timestamps: true})
 
 const Board = mongoose.model("Board", BoardSchema)

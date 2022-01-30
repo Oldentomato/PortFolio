@@ -14,7 +14,7 @@ function BoardPage() {
 
     const renderContent = File.map((file,index)=>{
         return (
-            <Link to={`${file._id}`} style={{textAlign:'left', marginLeft:'80px', borderColor:'rgb(0,0,0)'}}>
+            <Link key={index} to={`${file._id}`} style={{textAlign:'left', marginLeft:'80px', borderColor:'rgb(0,0,0)'}}>
                 <h2 style={{color:'#fff'}}>{index+1}  {file.title}</h2>
                 <h2 style={{color:'#fff',marginLeft:'10px'}}>{moment(file.createdAt).format("MMM Do YY")}</h2>
             </Link>

@@ -13,14 +13,14 @@ function DetailPage() {
     const renderContent = splitcontent.map((content,index)=>{
         if(index % 2 === 0){
             return(
-                <pre style={{color:"#fff", fontSize:'20px',textAlign:"left",marginTop:"50px", marginLeft:'60px', marginRight:'40px'}}>
+                <pre key={index} style={{color:"#fff", fontSize:'20px',textAlign:"left",marginTop:"50px", marginLeft:'60px', marginRight:'40px'}}>
                     {content}
                 </pre>
             )
         }
         else{
             return(
-                <pre>
+                <pre key={index}>
                     <code style={{marginLeft:'60px'}}>
                         {content}
                     </code>

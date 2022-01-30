@@ -9,15 +9,43 @@ const {TextArea} = Input;
 const {Title} = Typography;
 const {Option} = Select;
 
+function CreateImageComponent(UploadCount,FilePath,ImgPosCount,SetImageOrder){
+    var Component = []
+    if(ImgPosCount === 0){
+        return (<p style={{color:"#fff"}}>No Image Position</p>)
+    }
+    else if(UploadCount !== ImgPosCount){
+        return (<p style={{color:"#fff"}}>Not Equal PositionCount And UploadCount</p>)
+    }
+    else{
+        for(var i=0;i<UploadCount;i++){
+            Component.push(<UploadImage key={i} FilePath={FilePath[i]} ImgCount={UploadCount} GetOrder={SetImageOrder}/>)
+        }
+        return Component
+        
+    }
+
+}
+
 function CreatePage() {
     const [title, settitle] = useState("")
     const [content, setcontent] = useState("")
     const [type, settype] = useState("")
-    const [FilePath, setfilePath] = useState("")
-    const [ImgCount, setImgCount] = useState(0)
+    const [isImage, setisImage] = useState(false)
+    const [FilePath, setfilePath] = useState([])
+    const [FileOrder, setFileOrder] = useState([])
+    const [ImgPosCount, setImgPosCount] = useState(0)
+    const [UploadImgCount, setUploadImgCount] = useState(0)
 
     const titlehandler = (e) =>{
         settitle(e.currentTarget.value)
+    }
+
+    const CheckImageRule = () =>{//배열마다 번호지정이 되었는지 체크해야하는 부분 추가해야함
+        if(ImgPosCount === UploadImgCount)
+            return true
+        else
+            return false
     }
 
     const CheckSentence = () => {
@@ -45,7 +73,7 @@ function CreatePage() {
             imgcount++;
             img = content.indexOf('&',img +1)
         }
-        setImgCount(imgcount)
+        setImgPosCount(imgcount)
     }
 
 
@@ -55,6 +83,11 @@ function CreatePage() {
             //setcontent(content + '\t');
             
         }
+    }
+
+    const SetImageOrder = (num) =>{
+        // console.log(text)
+        setFileOrder([...FileOrder,num])//배열 값 추가법
     }
 
     const contenthandler = (e) => {
@@ -79,7 +112,10 @@ function CreatePage() {
         axios.post('/api/board/uploadimg',formData,config)
         .then(response=>{
             if(response.data.success){
-                setfilePath(response.data.filePath)
+                setfilePath([...FilePath,response.data.filePath])
+                setisImage(true)
+                setUploadImgCount(UploadImgCount + 1)
+                setFileOrder([...FileOrder,0])
             }else{
                 alert('사진 업로드에 문제가 발생했습니다')
             }
@@ -92,12 +128,13 @@ function CreatePage() {
             title: title,
             content: content,
             type: type
+
         }
-        if(title === "" || content === "" || type === "" || FilePath === ""){
+        if(title === "" || content === "" || type === ""){
             alert("내용들을 모두 입력하십시오")
         }
-        else if(!CheckSentence()){
-            alert('코드삽입 문법이 틀렸습니다')
+        else if(!CheckSentence() || !CheckImageRule()){
+            alert('문법이 틀렸습니다')
         }
         else{
             axios.post('/api/board/createcontent',data).then(response=>{
@@ -119,7 +156,7 @@ function CreatePage() {
     },[content])
 
     return (
-        <div style={{maxWidth:"700px",margin:"7rem auto", marginBottom:'20px'}}>
+        <div style={{maxWidth:"700px",margin:"auto", marginBottom:"20px"}}>
             <div style={{textAlign:"center",marginBotton:"2rem"}}>
                 <Title level={2} style={{color:"#fff", fontWeight:"300",fontSize:"3.5em", margin:"50px"}}>WRITE POST</Title>
             </div>
@@ -139,9 +176,12 @@ function CreatePage() {
                         </div>
                     )}
                 </DropZone>
-                <h3 style={{color:'#fff'}}>이미지 미리보기</h3>
-                {FilePath && <UploadImage FilePath={FilePath} ImgCount={ImgCount}/>}
+
                 </div>
+
+                <h3 style={{color:'#fff'}}>이미지 미리보기</h3>
+                {isImage && CreateImageComponent(UploadImgCount,FilePath,ImgPosCount,SetImageOrder)}
+                
                 <h2 style={{color:"#fff", marginBottom:"15px"}}>
                     Title
                 </h2>

@@ -1,5 +1,4 @@
 * {
-  margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
@@ -25,7 +24,6 @@ body {
   
   font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, helvetica neue, helvetica, ubuntu, roboto, noto,
     segoe ui, arial, sans-serif;
-    overflow-y: scroll;
     overflow-x: hidden;
     background: #272727 !important;
 }
