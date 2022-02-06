@@ -9,7 +9,7 @@ const {TextArea} = Input;
 const {Title} = Typography;
 const {Option} = Select;
 
-function CreateImageComponent(UploadCount,FilePath,ImgPosCount,SetImageOrder){
+function CreateImageComponent(UploadCount,FilePath,ImgPosCount,SetImageOrder, SetCount){
     var Component = []
     if(ImgPosCount === 0){
         return (<p style={{color:"#fff"}}>No Image Position</p>)
@@ -19,7 +19,7 @@ function CreateImageComponent(UploadCount,FilePath,ImgPosCount,SetImageOrder){
     }
     else{
         for(var i=0;i<UploadCount;i++){
-            Component.push(<UploadImage key={i} FilePath={FilePath[i]} ImgCount={UploadCount} GetOrder={SetImageOrder}/>)
+            Component.push(<UploadImage key={i} FilePath={FilePath[i]} ImgCount={UploadCount} GetOrder={SetImageOrder} SetImgCount={SetCount}/>)
         }
         return Component
         
@@ -37,6 +37,10 @@ function CreatePage() {
     const [ImgPosCount, setImgPosCount] = useState(0)
     const [UploadImgCount, setUploadImgCount] = useState(0)
 
+    const UploadCountHandler = (count) =>{
+        setUploadImgCount(count - 1)
+    }
+
     const titlehandler = (e) =>{
         settitle(e.currentTarget.value)
     }
@@ -50,11 +54,11 @@ function CreatePage() {
 
     const CheckSentence = () => {
         var codecount = 0;
-        var pos = content.indexOf('~')
+        var pos = content.indexOf('^')
         
         while(pos !== -1){
             codecount++;
-            pos = content.indexOf('~',pos + 1)
+            pos = content.indexOf('^',pos + 1)
         }
 
         if(codecount % 2 === 0){
@@ -127,8 +131,9 @@ function CreatePage() {
         const data = {
             title: title,
             content: content,
-            type: type
-
+            type: type,
+            imagepath: FilePath,
+            imageorder: FileOrder
         }
         if(title === "" || content === "" || type === ""){
             alert("내용들을 모두 입력하십시오")
@@ -180,7 +185,7 @@ function CreatePage() {
                 </div>
 
                 <h3 style={{color:'#fff'}}>이미지 미리보기</h3>
-                {isImage && CreateImageComponent(UploadImgCount,FilePath,ImgPosCount,SetImageOrder)}
+                {isImage && CreateImageComponent(UploadImgCount,FilePath,ImgPosCount,SetImageOrder,UploadCountHandler)}
                 
                 <h2 style={{color:"#fff", marginBottom:"15px"}}>
                     Title

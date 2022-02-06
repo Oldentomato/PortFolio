@@ -14,10 +14,10 @@ function ModifyPage() {
 
     const CheckSentence = () => {
         var count = 0;
-        var pos = content.indexOf('~')
+        var pos = content.indexOf('^')
         while(pos !== -1){
             count++;
-            pos = content.indexOf('~',pos + 1)
+            pos = content.indexOf('^',pos + 1)
         }
         if(count % 2 === 0){
             return true
@@ -55,7 +55,7 @@ function ModifyPage() {
     const DeletePost = (e) =>{
         if(window.confirm("정말로 게시물을 삭제하시겠습니까?")){
             e.preventDefault();
-            axios.post('/api/board/deletepost',BoardID)
+            axios.post('/api/modify/deletepost',BoardID)
             .then(response=>{
                 if(response.data.success){
                     alert("게시물이 삭제되었습니다")
@@ -74,7 +74,7 @@ function ModifyPage() {
             content: content
         }
         if(CheckSentence()){
-            axios.post('/api/board/modifypost',variable)
+            axios.post('/api/modify/modifypost',variable)
             .then(response=>{
                 if(response.data.success){
                     alert("내용수정이 완료되었습니다")

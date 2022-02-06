@@ -11,6 +11,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 app.use(cookieParser())
 app.use('/api/board', require('./routes/uploads'))
+app.use('/api/modify',require('./routes/modify'))
 app.use('/uploads',express.static('uploads'))
 
 mongoose.connect(config.mongoURI,{
