@@ -15,10 +15,10 @@ var storage = multer.diskStorage({
 
 const fileFilter = function(req,file,callback){
     var ext = path.extname(file.originalname)
-    if(ext !== '.jpg')
-        return callback(res.end('only jpg allowed'),false)
+    // if(ext !== '.jpg' || ext !== '.jpeg')
+    //     return callback(res.send('only jpg allowed'),false)
     
-        callback(null,true)
+    callback(null,true)
 }
 
 var upload = multer({

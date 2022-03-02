@@ -14,8 +14,7 @@ const BoardSchema = mongoose.Schema({
         type: String,
         maxLength: 15
     },
-    imagepath: [String],
-    imageorder: [Number]
+    file: [Object]
 },{timestamps: true})
 
 const Board = mongoose.model("Board", BoardSchema)

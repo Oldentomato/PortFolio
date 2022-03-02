@@ -33,4 +33,15 @@ router.post('/deleteImg',(req,res)=>{
     })
 })
 
+router.post('/deleteImgs',(req,res)=>{
+    for(var i=0; i<req.body.count; i++){
+        fs.unlink(req.body.FilePath[i],(err)=>{
+            if(err){
+                console.log('사진 삭제 에러:'+ err)
+            }
+        })
+    }
+    return res.status(200).json({success:true})
+})
+
 module.exports = router

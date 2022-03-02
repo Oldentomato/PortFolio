@@ -89,7 +89,7 @@ function ModifyPage() {
  
     }
 
-    useEffect(()=>{
+    useEffect(()=>{//axios로 말고 매개변수로 데이터들을 가져오자
         axios.post('/api/board/getpost',BoardID)
         .then(response=>{
             if(response.data.success){

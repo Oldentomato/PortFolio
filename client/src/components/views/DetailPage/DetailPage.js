@@ -9,11 +9,11 @@ function DetailPage() {
     const [title, settitle] = useState("")
     const [splitcontent, setsplitcontent] = useState([])
     const [isready, setisready] = useState(false)
-    const [imgpath, setimgpath] = useState([])
-    const [imgorder, setimgorder] = useState([])
+    const [img, setimg] = useState([])
 
 
     const renderContent = splitcontent.map((content,index)=>{
+        var imgcount = 1
         if(index % 2 === 0){
             if(content.indexOf('&') === -1){
                 return(
@@ -23,19 +23,26 @@ function DetailPage() {
                 )
             }
             else{
-                var imgcontent = content.split('&')
+                const imgcontent = content.split('&')
                 const result = imgcontent.map((imgcontent,imgindex)=>{
                     if(imgindex !== 0){//&가 무조건 문단위에 있다는 가정하에 지정
                     //배열로 나뉘어있다는 것은 &가 무조건으로 있다는 의미이다 그러니 0번째를 제외한 모든 문단에는 이미지가 존재
                     //밑에 문단이 없고 사진만 있어도 에러가 뜨지 않고 빈 문단이 생김(눈에 크게 띄지 않으므로 상관없다)
-                        return(
-                            <>
-                            <img key={'img'+ {imgindex}} src={LocalURI+imgpath[imgorder[index]]} style={{textAlign:"left",marginTop:"50px", marginLeft:'60px', marginRight:'40px'}}/>
-                                <pre key={imgindex} style={{color:"#fff", fontSize:'20px',textAlign:"left",marginTop:"50px", marginLeft:'60px', marginRight:'40px'}}>
-                                    {imgcontent}
-                                </pre>
-                            </>
-                        )
+
+                        if(isready){
+                            var order = img.findIndex(i=>i.fileorder === imgcount)
+                            imgcount += 1
+                            return(
+                                <>
+                                <img key={'img'+ {imgindex}} src={LocalURI+img[order].filepath} style={{textAlign:"left",marginTop:"50px", marginLeft:'60px', marginRight:'40px'}}/>
+                                    <pre key={imgindex} style={{color:"#fff", fontSize:'20px',textAlign:"left",marginTop:"50px", marginLeft:'60px', marginRight:'40px'}}>
+                                        {imgcontent}
+                                    </pre>
+                                </>
+                            )
+                        }
+
+
                     }else{
                         return(
                             <pre key={imgindex} style={{color:"#fff", fontSize:'20px',textAlign:"left",marginTop:"50px", marginLeft:'60px', marginRight:'40px'}}>
@@ -62,15 +69,17 @@ function DetailPage() {
 
     })
 
+
     useEffect(()=>{
         axios.post('/api/board/getpost',BoardID)
         .then(response=>{
             if(response.data.success){
                 settitle(response.data.board.title)
                 setsplitcontent(response.data.board.content.split('^'))
-                setimgpath(response.data.board.imagepath)
-                setimgorder(response.data.board.imageorder)
+                setimg(response.data.board.file)
                 setisready(true)
+                
+                    
             }
             else
                 alert("게시물을 가져오는데 문제가 발생했습니다")

@@ -9,7 +9,7 @@ const {TextArea} = Input;
 const {Title} = Typography;
 const {Option} = Select;
 
-function CreateImageComponent(UploadCount,FilePath,ImgPosCount,SetImageOrder, SetCount){
+function CreateImageComponent(UploadCount,File,ImgPosCount,SetImageOrder, SetCount, OnDelete){
     var Component = []
     if(ImgPosCount === 0){
         return (<p style={{color:"#fff"}}>No Image Position</p>)
@@ -19,7 +19,7 @@ function CreateImageComponent(UploadCount,FilePath,ImgPosCount,SetImageOrder, Se
     }
     else{
         for(var i=0;i<UploadCount;i++){
-            Component.push(<UploadImage key={i} FilePath={FilePath[i]} ImgCount={UploadCount} GetOrder={SetImageOrder} SetImgCount={SetCount}/>)
+            Component.push(<UploadImage key={i} FilePath={File[i].filepath} ImgCount={UploadCount} SetOrder={SetImageOrder} SetImgCount={SetCount} SetDelete={OnDelete}/>)
         }
         return Component
         
@@ -32,13 +32,14 @@ function CreatePage() {
     const [content, setcontent] = useState("")
     const [type, settype] = useState("")
     const [isImage, setisImage] = useState(false)
-    const [FilePath, setfilePath] = useState([])
-    const [FileOrder, setFileOrder] = useState([])
+    const [File, setFile] = useState([])
     const [ImgPosCount, setImgPosCount] = useState(0)
     const [UploadImgCount, setUploadImgCount] = useState(0)
 
     const UploadCountHandler = (count) =>{
         setUploadImgCount(count - 1)
+        if(UploadImgCount === 0)
+            setisImage(false)
     }
 
     const titlehandler = (e) =>{
@@ -78,6 +79,8 @@ function CreatePage() {
             img = content.indexOf('&',img +1)
         }
         setImgPosCount(imgcount)
+        if(UploadImgCount === 0)
+            setisImage(false)
     }
 
 
@@ -89,9 +92,15 @@ function CreatePage() {
         }
     }
 
-    const SetImageOrder = (num) =>{
-        // console.log(text)
-        setFileOrder([...FileOrder,num])//배열 값 추가법
+    const OnDelete = (path) =>{
+        setFile(File.filter((arr)=> arr.filepath !== path))
+    }
+
+    const SetImageOrder = (path, value) =>{
+        setFile(File.map((arr)=>(
+            arr.filepath === path ? {...arr, fileorder : value} : arr
+        ))
+        )
     }
 
     const contenthandler = (e) => {
@@ -112,18 +121,25 @@ function CreatePage() {
             header: {'content-type': 'multipart/form-data'}
         }
         formData.append("file",files[0])
-        
+
+
         axios.post('/api/board/uploadimg',formData,config)
         .then(response=>{
+            const file = {
+                filepath: response.data.filePath,
+                fileorder: 0
+            }
             if(response.data.success){
-                setfilePath([...FilePath,response.data.filePath])
+                setFile(File.concat(file))
+                // setfilePath(FilePath.concat(response.data.filePath))
                 setisImage(true)
                 setUploadImgCount(UploadImgCount + 1)
-                setFileOrder([...FileOrder,0])
+                // setFileOrder(FileOrder.concat(0))
             }else{
                 alert('사진 업로드에 문제가 발생했습니다')
             }
         })
+        
     }
 
     const onSubmit = (e) => {
@@ -132,8 +148,7 @@ function CreatePage() {
             title: title,
             content: content,
             type: type,
-            imagepath: FilePath,
-            imageorder: FileOrder
+            file: File
         }
         if(title === "" || content === "" || type === ""){
             alert("내용들을 모두 입력하십시오")
@@ -185,7 +200,7 @@ function CreatePage() {
                 </div>
 
                 <h3 style={{color:'#fff'}}>이미지 미리보기</h3>
-                {isImage && CreateImageComponent(UploadImgCount,FilePath,ImgPosCount,SetImageOrder,UploadCountHandler)}
+                {isImage && CreateImageComponent(UploadImgCount,File,ImgPosCount,SetImageOrder,UploadCountHandler,OnDelete)}
                 
                 <h2 style={{color:"#fff", marginBottom:"15px"}}>
                     Title
@@ -197,7 +212,7 @@ function CreatePage() {
                 </h2>
                 <TextArea
                 onKeyDown={codeInputTabHandler} 
-                style={{width:"100%", height:"200px"}} onChange={contenthandler} value={content}/>
+                style={{height:"250px"}} onChange={contenthandler} value={content}/>
                 <br/>
                 <div style={{marginTop:"20px"}}>
                     <Button type="primary" size="large" onClick={onSubmit} style={{marginRight: "10px"}}>Submit</Button>
