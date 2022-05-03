@@ -21,25 +21,22 @@ function ModelDesk(){
 
 function ModelChair(){
     const gltf = useLoader(GLTFLoader,".Object/")
-    return <primitive ovject={gltf.scene} dispose={null}/>
+    return <primitive object={gltf.scene} dispose={null}/>
 }
 
 const HTMLModel = () => {
     const [Deskhover, setDesk] = useState(false)
-    const OnHoverDesk = () => {
-        if(Deskhover){
-
-        }
+    const ClickDesk = () => {
+        window.location.href = "/Activities"
     }
 
     return (
         <Section factor={1.5} offset={1}>
             <group position={[0,250,0]}>
-            <mesh onPointerOver={()=> setDesk(true)} onPointerOut={() => setDesk(false)} castShadow receiveShadow position={[0,80,0]} 
+            <mesh onPointerOver={()=> setDesk(true)} onPointerOut={() => setDesk(false)} onClick={ClickDesk} castShadow receiveShadow position={[0,80,0]} 
             scale={Deskhover?[200,200,200] : [100,100,100]} style={{transition:"2s"}}>
-                {OnHoverDesk()}
                 <ModelDesk/>
-                {Deskhover && <HTMLContent Text="야~~~" x={-0.1} y={0.2} z={0}/>}
+                {Deskhover && <HTMLContent Text="활동내역 보기" x={0} y={0.45} z={0}/>}
             </mesh>
         </group>
         </Section>
@@ -53,7 +50,7 @@ const HTMLContent = ({Text,x,y,z}) =>{
     return(
         <Html position={[x,y,z]}>
         <div style={{background:"rgb(0,0,0,0.5)"}}>
-            <h2 style={{color:"#fff",right:"50vw", width:'8vw', textAlign:'center'}}>{Text}</h2>
+            <h2 style={{color:"#fff", width:'8vw', textAlign:'center', margin:'30px', marginTop:'40px'}}>{Text}</h2>
             
         </div>
       
@@ -94,7 +91,7 @@ function LandingPage(){
         <div id="world">
           
             <Canvas colorManagement camera={{position:[10,20,170], fov:70}}>
-                {/* <OrbitControls enableZoom={false} /> */}
+                <OrbitControls enableZoom={false} />
                 <Lights/>
                 <Stars radius={150} depth={50} count={4000} factor={8} saturation={0} fade />
                 {/* <Plane scale={[100,10,10]} rotation={[0,0,0]}/> */}
