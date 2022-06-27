@@ -9,7 +9,8 @@ const fs = require('fs')
 router.post('/modifypost',(req,res)=>{
     Board.findByIdAndUpdate({_id: req.body.BoardID},
         {   title: req.body.title,
-            content: req.body.content},
+            content: req.body.content,
+            type: req.body.type},
             (err,result)=>{
                 if(err) return res.json({success: false, err})
                 return res.status(200).json({success:true})

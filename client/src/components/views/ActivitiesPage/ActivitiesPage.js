@@ -50,7 +50,9 @@ function ActivitiesPage() {
             <Text style={{color:'#fff', fontSize:'20px', margin:'10px'}}>춘계 학술대회 참여(딥러닝)</Text>
             <br/>
             <Text style={{color:'#fff', fontSize:'20px', margin:'10px'}}>소프트웨어야 놀자 멘토링 참여</Text>
-
+            <br/>
+            <Text style={{color:'#fff', fontSize:'20px', margin:'10px'}}>2022 K-해커톤 참여</Text>
+            <br/>
         </div>
         
     </div>

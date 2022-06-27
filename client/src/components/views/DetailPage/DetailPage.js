@@ -6,7 +6,9 @@ import {Button} from 'antd'
 function DetailPage() {
     const LocalURI = 'http://localhost:5000/'
     const BoardID = useParams();
+    const [type, settype] = useState("")
     const [title, settitle] = useState("")
+    const [content, setcontent] = useState("")
     const [splitcontent, setsplitcontent] = useState([])
     const [isready, setisready] = useState(false)
     const [img, setimg] = useState([])
@@ -75,6 +77,8 @@ function DetailPage() {
         .then(response=>{
             if(response.data.success){
                 settitle(response.data.board.title)
+                setcontent(response.data.board.content)
+                settype(response.data.board.type)
                 setsplitcontent(response.data.board.content.split('^'))
                 setimg(response.data.board.file)
                 setisready(true)
@@ -95,7 +99,14 @@ function DetailPage() {
                     {renderContent}
                 </div>
                 <div>
-                    <Button size="large" style={{marginLeft:'60px', marginBottom:'20px'}}><Link to={{pathname:`/Modify/${BoardID.BoardID}`}}>Modify</Link></Button>
+                    <Button size="large" style={{marginLeft:'60px', marginBottom:'20px'}}>
+                        <Link to={`/Modify/${BoardID.BoardID}`}
+                        state={{
+                            title: title,
+                            content: content,
+                            type: type,
+                            id: BoardID.BoardID
+                    }}>Modify</Link></Button>
                 </div>
                
                 
