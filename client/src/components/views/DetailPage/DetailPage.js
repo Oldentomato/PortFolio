@@ -93,7 +93,7 @@ function DetailPage() {
 
     if(isready){     
         return (
-            <div style={{position:"relative", display:"block"}}>
+            <div style={{position:"relative", display:"block", paddingBottom:"20px"}}>
                 <div style={{position:"relative"}}>
                     <h1 style={{color:"#fff", fontSize:'30px', textAlign:"center",marginTop:"150px"}}>{title}</h1>
                     {renderContent}

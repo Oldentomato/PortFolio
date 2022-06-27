@@ -176,9 +176,9 @@ function PostComponent(props) {
     },[content])
 
   return (
-        <div style={{maxWidth:"700px",margin:"auto", marginBottom:"20px"}}>
+        <div style={{maxWidth:"1000px",margin:"auto", paddingBottom:"40px",marginTop:"100px"}}>
         <div style={{textAlign:"center",marginBotton:"2rem"}}>
-            <Title level={2} style={{color:"#fff", fontWeight:"300",fontSize:"3.5em", margin:"50px"}}>WRITE POST</Title>
+            <Title level={2} style={{color:"#fff", fontWeight:"300",fontSize:"3.5em", margin:"30px"}}>{props.page==="Create" ? "WRITE POST" : "MODIFY POST"}</Title>
         </div>
 
         <Form> 
@@ -212,7 +212,7 @@ function PostComponent(props) {
             </h2>
             <TextArea
             onKeyDown={codeInputTabHandler} 
-            style={{height:"250px"}} onChange={contenthandler} value={content}/>
+            style={{height:"400px"}} onChange={contenthandler} value={content}/>
             <br/>
             <div style={{marginTop:"20px"}}>
                 <Button type="primary" size="large" onClick={onSubmit} style={{marginRight: "10px"}}>Submit</Button>

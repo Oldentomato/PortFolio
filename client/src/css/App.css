@@ -91,8 +91,7 @@ body {
 
 .BoardPage{
   z-index: 9;
-  height: 30vh;
-  
+  margin-bottom: 10%;
 }
 
 .BoardPage .Content{
@@ -102,7 +101,8 @@ body {
   margin-left: -500px;
   margin-top: -200px;
   width: 130vh;
-  height: 100vh;
+  height: 150vh;
+  padding-bottom: 40px;
   border-radius: 6px;
   z-index: 9;
   backdrop-filter: blur(15px);
