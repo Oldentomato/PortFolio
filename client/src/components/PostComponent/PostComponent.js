@@ -9,7 +9,7 @@ const {TextArea} = Input;
 const {Title} = Typography;
 const {Option} = Select;
 
-function CreateImageComponent(UploadCount,FilePath,ImgPosCount,SetImageOrder, SetCount){
+function CreateImageComponent(UploadCount,FilePath,ImgPosCount,SetImageOrder, SetCount, OnDelete){
     var Component = []
     if(ImgPosCount === 0){
         return (<p style={{color:"#fff"}}>No Image Position</p>)
@@ -19,7 +19,7 @@ function CreateImageComponent(UploadCount,FilePath,ImgPosCount,SetImageOrder, Se
     }
     else{
         for(var i=0;i<UploadCount;i++){
-            Component.push(<UploadImage key={i} FilePath={FilePath[i]} ImgCount={UploadCount} SetOrder={SetImageOrder} SetImgCount={SetCount}/>)
+            Component.push(<UploadImage key={i} FilePath={FilePath[i].filepath} ImgCount={UploadCount} SetOrder={SetImageOrder} SetImgCount={SetCount} SetDelete={OnDelete}/>)
         }
         return Component
         
@@ -36,7 +36,7 @@ function PostComponent(props) {
     const [ImgPosCount, setImgPosCount] = useState(0)
     const [UploadImgCount, setUploadImgCount] = useState(0)
 
-    const UploadCountHandler = (count) =>{
+    const UploadCountHandler = (count) =>{ //이미지가 삭제 됐을 때 실행
         setUploadImgCount(count - 1)
         if(UploadImgCount === 0)
             setisImage(false)
@@ -92,7 +92,7 @@ function PostComponent(props) {
         }
     }
 
-    const OnDelete = (path) =>{
+    const OnDelete = (path) =>{ //파일경로를 이용하여 검색 후 File에서 삭제
         setFile(File.filter((arr)=> arr.filepath !== path))
     }
 
@@ -144,12 +144,7 @@ function PostComponent(props) {
 
     const onSubmit = (e) => {
         e.preventDefault();
-        const data = {
-            title: title,
-            content: content,
-            type: type,
-            file: File
-        }
+
         if(title === "" || content === "" || type === ""){
             alert("내용들을 모두 입력하십시오")
         }
@@ -157,16 +152,44 @@ function PostComponent(props) {
             alert('문법이 틀렸습니다')
         }
         else{
-            axios.post('/api/board/createcontent',data).then(response=>{
-                if(response.data.success){
-                    alert("글쓰기가 완료되었습니다")
-                    window.location.replace("/Category")
-                }   
-                else{
-                    alert("업로드에 문제가 발생했습니다")
+            const createdata = {
+                title: title,
+                content: content,
+                type: type,
+                file: File
+            }
+            if(props.page === "Create"){
+                axios.post('/api/board/createcontent',createdata).then(response=>{
+                    if(response.data.success){
+                        alert("글쓰기가 완료되었습니다")
+                        window.location.replace("/Category")
+                    }   
+                    else{
+                        alert("업로드에 문제가 발생했습니다")
+                    }
+        
+                })
+            }
+            else{
+                const modifydata = {
+                    BoardID: props.id,
+                    title: title,
+                    content: content,
+                    type: type,
+                    file: File
                 }
-    
-            })
+                axios.post('/api/modify/modifypost',modifydata).then(response=>{
+                    if(response.data.success){
+                        alert("글 수정이 완료되었습니다")
+                        window.location.replace("/Category")
+                    }   
+                    else{
+                        alert("수정에 문제가 발생했습니다")
+                    }
+        
+                })
+            }
+
         }
 
     }
@@ -176,6 +199,7 @@ function PostComponent(props) {
     },[content])
 
   return (
+    
         <div style={{maxWidth:"1000px",margin:"auto", paddingBottom:"40px",marginTop:"100px"}}>
         <div style={{textAlign:"center",marginBotton:"2rem"}}>
             <Title level={2} style={{color:"#fff", fontWeight:"300",fontSize:"3.5em", margin:"30px"}}>{props.page==="Create" ? "WRITE POST" : "MODIFY POST"}</Title>

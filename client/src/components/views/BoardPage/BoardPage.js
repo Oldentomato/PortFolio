@@ -1,25 +1,27 @@
 import React,{useEffect,useState} from 'react'
-import {useParams, Link} from 'react-router-dom'
-import moment from 'moment'
+import {useParams} from 'react-router-dom'
 import axios from 'axios'
+import Pagination from './Pagination'
+import Page from './Page'
 
 function BoardPage() {
     const Category = useParams();
     const [File, setFile] = useState([]);
+    const [currentPage, setcurrentPage] = useState(1);
+    const [postsPerPage, setpostPerPage] = useState(6);
     const body = {
         type: Category.CatID
     }
-    
-    
 
-    const renderContent = File.map((file,index)=>{
-        return (
-            <Link key={index} to={`${file._id}`} style={{textAlign:'left', marginLeft:'80px', borderColor:'rgb(0,0,0)'}}>
-                <h2 style={{color:'#fff'}}>{index+1}  {file.title}</h2>
-                <h2 style={{color:'#fff',marginLeft:'10px'}}>{moment(file.createdAt).format("MMM Do YY")}</h2>
-            </Link>
-        )
-    })
+    const indexOfLast = currentPage * postsPerPage;
+    const indexOfFirst = indexOfLast - postsPerPage;
+    const currentPosts = (posts) => {
+        let currentPosts = 0;
+        currentPosts = posts.slice(indexOfFirst, indexOfLast);
+        return currentPosts;
+      };
+
+
 
     useEffect(()=>{
         //req내용이 있으면 무조건 post로 전달해야한다
@@ -37,10 +39,21 @@ function BoardPage() {
         <div className="BoardPage">
             <div className="Content">
                 <h2 style={{color:'#fff', marginTop:"50px",fontSize:'70px', textAlign:'center'}}>{Category.CatID}</h2>
-                {renderContent}
-            </div>
-            
+                <div style={{marginLeft:'80px'}}>
+                    <Page posts={currentPosts(File)}/>
 
+                </div>
+                <div style={{marginTop:'50px', width:'90%', marginLeft:'28%'}}>
+                    <Pagination
+                        postsPerPage = {postsPerPage}
+                        totalPost = {File.length}
+                        paginate = {setcurrentPage}
+                    />
+                </div>
+
+
+            </div>
+        
 
         </div>
     )

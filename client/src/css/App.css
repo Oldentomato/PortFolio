@@ -95,11 +95,10 @@ body {
 }
 
 .BoardPage .Content{
-  display: grid;
+  display: inline-block;
   position: absolute;
-  left: 50%;
-  margin-left: -500px;
-  margin-top: -200px;
+  left: 16%;
+  margin-top: -250px;
   width: 130vh;
   height: 150vh;
   padding-bottom: 40px;
@@ -117,6 +116,48 @@ code {
   display: block;
   padding: 20px;
   width: 70%;
+}
+
+
+.PageList ul{
+  position: relative;
+  background: #fff;
+  width: 50%;
+  display: inline-flex;
+  padding: 10px 20px;
+  border-radius: 50px;
+  box-shadow: 0 5px 15px rgba(0,0,0,.2);
+
+}
+
+.PageList ul li{
+  list-style: none;
+  line-height: 50px;
+  margin: 0 5px;
+}
+
+ul li.pageNumber{
+  margin-right: 40px;
+  margin-left: 40px;
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+}
+
+ul li a{
+  display: block;
+  text-decoration: none;
+  color: #777;
+  font-weight: 600;
+  border-radius: 50%;
+  border: none;
+}
+
+ul li.pageNumber:hover a,
+ul li.pageNumber.active a{
+  background: #333;
+  color: #fff;
 }
 
 /* .Loading{

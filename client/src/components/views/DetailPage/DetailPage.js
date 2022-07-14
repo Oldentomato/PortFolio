@@ -105,7 +105,8 @@ function DetailPage() {
                             title: title,
                             content: content,
                             type: type,
-                            id: BoardID.BoardID
+                            id: BoardID.BoardID,
+                            img: img
                     }}>Modify</Link></Button>
                 </div>
                
