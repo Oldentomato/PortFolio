@@ -1,57 +1,67 @@
-import React,{Suspense, useState} from "react"
+import React,{Suspense, useState, useRef} from "react"
 import {Canvas,useFrame,useLoader} from "@react-three/fiber"
+import {useSpring,a} from "@react-spring/three"
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
+// import { OBJLoader} from 'three/examples/jsm/loaders/OBJLoader'
 import {Html, OrbitControls, Stars, useScroll} from "@react-three/drei"
 import {Section} from "../../section"
 
-function Models(){
-    
-}
 
 function ModelDesk(){
-    const gltf = useLoader(GLTFLoader,"/Object/test.gltf");
-    const scroll = useScroll()
-    // useFrame((state,delta)=>{
-    //     const offset = 1 - scroll.offset
-    //     state.camera.position.set(Math.sin(offset) * -10, Math.atan(offset * Math.PI * 2) * 5, Math.cos((offset * Math.PI) / 3) * -10)
-    //     state.camera.lookAt(0,0,0)
-    // })
-    return <primitive object={gltf.scene} dispose={null}/>;
-}
-
-function ModelChair(){
-    const gltf = useLoader(GLTFLoader,".Object/")
-    return <primitive object={gltf.scene} dispose={null}/>
-}
-
-const HTMLModel = () => {
-    const [Deskhover, setDesk] = useState(false)
-    const ClickDesk = () => {
+    const gltf = useLoader(GLTFLoader,"/Object/scene.glb");
+    const meshRef = useRef();
+    const [hovered, setHovered] = useState(false);
+    // const [active, setActive] = useState(false);
+    const props = useSpring({
+        scale: hovered ? [2, 2, 2] : [1, 1, 1]
+        // color: hovered ? "hotpink" : "gray"
+      });
+    const onClick = () => {
         window.location.href = "/Activities"
     }
 
+    useFrame(() => {
+        if(!hovered){
+            meshRef.current.rotation.y += 0.01
+        }
+
+      });
+    // const scroll = useScroll()
+    return(
+        <>
+        <a.mesh ref={meshRef} onPointerOver={()=> setHovered(true)} onPointerOut={() => setHovered(false)} onClick={onClick} 
+        scale={props.scale} castShadow receiveShadow position={[0,80,0]}>
+                <primitive object={gltf.scene} dispose={null}/>
+        </a.mesh>
+        {hovered && <HTMLContent Text="활동내역 보기" fontsize="30px" x={-35} y={70} z={0}/>}
+        </>
+    ) 
+}
+
+// function ModelTest(){
+//     const obj = useLoader(OBJLoader,".Object/")
+//     return <primitive object={obj} />
+// }
+
+const HTMLModel = () => {
     return (
         <Section factor={1.5} offset={1}>
             <group position={[0,250,0]}>
-            <mesh onPointerOver={()=> setDesk(true)} onPointerOut={() => setDesk(false)} onClick={ClickDesk} castShadow receiveShadow position={[0,80,0]} 
-            scale={Deskhover?[200,200,200] : [100,100,100]} style={{transition:"2s"}}>
-                <ModelDesk/>
-                {Deskhover && <HTMLContent Text="활동내역 보기" x={0} y={0.45} z={0}/>}
-            </mesh>
-        </group>
+                <ModelDesk />
+            </group>
         </Section>
 
-
     )
+   
 }
 
-const HTMLContent = ({Text,x,y,z}) =>{
+const HTMLContent = ({Text,fontsize,x,y,z}) =>{
     
     return(
         <Html position={[x,y,z]}>
-        <div style={{background:"rgb(0,0,0,0.5)"}}>
-            <h2 style={{color:"#fff", width:'8vw', textAlign:'center', margin:'30px', marginTop:'40px'}}>{Text}</h2>
-            
+        <div>
+            <h2 style={{color:"#fff",fontSize: fontsize, width:'15vw', textAlign:'center', margin:'30px', marginTop:'40px'}}>{Text}</h2>
+  
         </div>
       
         </Html>
@@ -67,7 +77,7 @@ const Lights = () => {
         {/* <directionalLight position={[10, 10, 5]} intensity={1} /> */}
         <directionalLight
           castShadow
-          position={[0, 10, 0]}
+          position={[10, 10, 0]}
           intensity={1.5}
           shadow-mapSize-width={1024}
           shadow-mapSize-height={1024}
@@ -90,7 +100,7 @@ function LandingPage(){
     return(
         <div id="world">
           
-            <Canvas colorManagement camera={{position:[10,20,170], fov:70}}>
+            <Canvas colorManagement camera={{position:[10,100,100], fov:75}}>
                 <OrbitControls enableZoom={false} />
                 <Lights/>
                 <Stars radius={150} depth={50} count={4000} factor={8} saturation={0} fade />
