@@ -13,7 +13,7 @@ function ActivitiesPage() {
         <br/>
         <div style={{marginLeft:'20px'}}>
             <Title level={2} style={{color:'#fff'}}>My Tech</Title>
-            <img src={"https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=JavaScript&logoColor=black"}/>
+            {/* <img src={"https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=JavaScript&logoColor=black"}/>
             <img style={{marginLeft:'10px'}} src={"https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=black"}/>
             <img style={{marginLeft:'10px'}} src={"https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=MongoDB&logoColor=white"}/>
             <img style={{marginLeft:'10px'}} src={"https://img.shields.io/badge/NodeJS-339933?style=for-the-badge&logo=Node.js&logoColor=black"}/>
@@ -22,7 +22,7 @@ function ActivitiesPage() {
             <img style={{marginLeft:'10px'}} src={"https://img.shields.io/badge/Unity-000000?style=for-the-badge&logo=Unity&logoColor=white"}/>
             <img style={{marginLeft:'10px'}} src={"https://img.shields.io/badge/Java-007396?style=for-the-badge&logo=Java&logoColor=black"}/>
             <img style={{marginLeft:'10px'}} src={"https://img.shields.io/badge/CSharp-239128?style=for-the-badge&logo=CSharp&logoColor=black"}/>
-            <img style={{marginLeft:'10px',marginTop:'10px'}} src={"https://img.shields.io/badge/Tensorflow-FF6F00?style=for-the-badge&logo=Tensorflow&logoColor=black"}/>
+            <img style={{marginLeft:'10px',marginTop:'10px'}} src={"https://img.shields.io/badge/Tensorflow-FF6F00?style=for-the-badge&logo=Tensorflow&logoColor=black"}/> */}
 
         </div>
         <br />
