@@ -2,10 +2,15 @@ import React,{Suspense, useState, useRef} from "react"
 import {Canvas,useFrame,useLoader} from "@react-three/fiber"
 import {useSpring,a} from "@react-spring/three"
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
-import {Html, OrbitControls, useScroll, Sky,PerspectiveCamera, softShadows} from "@react-three/drei"
+import {Html, OrbitControls, useScroll, Sky,PerspectiveCamera, Cloud} from "@react-three/drei"
 import {Section} from "../../section"
+import {useSelector} from "react-redux";
+import {Link} from 'react-router-dom';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {faGithub} from '@fortawesome/free-brands-svg-icons';
+import {faSquare, faCircle, faMoon, faStar} from '@fortawesome/free-regular-svg-icons'
+import { MouseParallax, ScrollParallax } from "react-just-parallax";
 
-softShadows();
 function ModelDesk(){
     const gltf = useLoader(GLTFLoader,"/Object/scene.glb");
     const meshRef = useRef();
@@ -54,6 +59,7 @@ const HTMLModel = () => {
    
 }
 
+
 const HTMLContent = ({Text,fontsize,x,y,z}) =>{
     
     return(
@@ -97,36 +103,96 @@ const Lights = () => {
 
 
 function LandingPage(){
+
+    const banner = useSelector(state => state);
+    
     return(
+        <>
+            <section className={banner}>
+                 <div className="content">
+                    <div className="contentBx">
+                        <h4>Hello,</h4>
+                        <h2>I'm JoWooSung</h2>
+                        <h3>Professional Web Developer</h3>
+                        <p>
+                            I can develop front-end and back-end, and also develop apps, unity, and DeepLearning.
+                        </p>
+                        <a href='http://polaroid.kro.kr'>My WebProject</a>
+                        <a href='#'>Contact Me</a>
+                    </div>
+                 </div>
+
+                 <ul className="menu">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Work</a></li>
+                    <li><Link to="Category">Blog</Link></li>
+                    <li><Link to="Create">Write</Link></li>
+                 </ul>
+                <div className="sci">
+                    <a href="https://github.com/Oldentomato"><FontAwesomeIcon color="#fff" size="3x" icon={faGithub}/></a>
+                </div>
+
+                <div>
+                    <MouseParallax strength={0.05} >
+                        <FontAwesomeIcon transform="left-110 up-5" className="elements" color="#ff3232" size="8x" icon={faSquare}/>
+
+                        
+                    </MouseParallax>
+                    <MouseParallax strength={0.06} >
+                        <FontAwesomeIcon transform="left-40 down-45" className="elements" color="#32ff32" size="8x" icon={faCircle}/>
+                    </MouseParallax>
+
+                    <MouseParallax strength={0.02} >
+                        <FontAwesomeIcon transform="left-100 down-30" className="elements" color="#dc32dc" size="9x" icon={faMoon}/>
+                    </MouseParallax>
+
+                    <MouseParallax strength={0.03} >
+                        <FontAwesomeIcon transform="up-90 left-30" className="elements" color="#f0f028" size="6x" icon={faStar}/>
+                    </MouseParallax>
+                </div>
+
+                 
+            </section>
         <div id="world">
           
-            <Canvas colorManagement shadows>
-            <OrbitControls
-                makeDefault
-                autoRotate
-                autoRotateSpeed={0.3}
-                maxPolarAngle={Math.PI / 2.3}
-                minPolarAngle={Math.PI / 2.3}
-                enableZoom={false}
-                enablePan={false}
-            />
-            <PerspectiveCamera makeDefault fov={65} position={[0, 0, 4]}>
-                <spotLight position={[0, 50, 0]} angle={0.15} penumbra={1} intensity={10} castShadow shadow-mapSize={[2048, 2048]} />
-            </PerspectiveCamera>
-                <Lights/>
-                <Sky
-                    distance={450000}
-                    sunPosition={[5, 1, 8]}
-                    inclination={0}
-                    azimuth={0.25}
-                />
-                {/* <Stars radius={150} depth={50} count={4000} factor={8} saturation={0} fade /> */}
-                <Suspense fallback={null}>
-                    <HTMLModel/>
-                </Suspense>
-            </Canvas>
-           
-        </div>
+          <Canvas colorManagement shadows>
+          <OrbitControls
+              makeDefault
+              autoRotate
+              autoRotateSpeed={0.3}
+              maxPolarAngle={Math.PI / 2.3}
+              minPolarAngle={Math.PI / 2.3}
+              enableZoom={false}
+              enablePan={false}
+          />
+          <PerspectiveCamera makeDefault fov={65} position={[0, 0, 4]}>
+              <spotLight position={[0, 50, 0]} angle={0.15} penumbra={1} intensity={10} castShadow shadow-mapSize={[2048, 2048]} />
+          </PerspectiveCamera>
+              <Lights/>
+              <Sky
+                  distance={450000}
+                  sunPosition={[5, 1, 8]}
+                  inclination={0}
+                  azimuth={0.25}
+              />
+              {/* <Cloud
+                opacity={0.5}
+                speed={0.4} // Rotation speed
+                width={10} // Width of the full cloud
+                depth={1.5} // Z-dir depth
+                segments={20} // Number of particles
+                /> */}
+              {/* <Stars radius={150} depth={50} count={4000} factor={8} saturation={0} fade /> */}
+              <Suspense fallback={null}>
+                  <HTMLModel/>
+              </Suspense>
+          </Canvas>
+         
+      </div>
+
+        </>
+
 
     )
 }
