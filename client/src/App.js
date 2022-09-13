@@ -8,7 +8,6 @@ import DetailPage from "../src/components/views/DetailPage/DetailPage"
 import ModifyPage from "../src/components/views/ModifyPage/ModifyPage"
 import ActivitiesPage from "./components/views/ActivitiesPage/ActivitiesPage"
 import "./css/App.css"
-
 import CategoryPage from "../src/components/views/CategoryPage/CategoryPage"
 
 export default function App() {

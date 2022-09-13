@@ -88,6 +88,7 @@ body {
 .NavBarHeader{
   color: #fff;
   font-weight: 800;
+  margin-top: 20px;
   text-decoration: none;
   font-size: 2.5em;
   text-transform: uppercase;
@@ -193,15 +194,15 @@ section.banneractive::before{
   box-shadow: 0 0 0 1200px #1ede6e;
 }
 
-header .toggle{
+/* header .toggle{
   position: relative;
   width: 30px;
-  height: 30px;
+  height: 20px;
   background-repeat: no-repeat;
   background-position: center;
   background-size: 30px;
   cursor: pointer;
-}
+} */
 
 header .active{
   background-repeat: no-repeat;
@@ -216,6 +217,8 @@ header .active{
   left: 48%;
   border: 0;
   outline: 0;
+  visibility: visible;
+  opacity: 1;
 }
 
 .toggleactive {
@@ -224,6 +227,11 @@ header .active{
   left: 48%;
   border: 0;
   outline: 0;
+}
+
+.blogtoggle{
+  visibility: hidden;
+  opacity: 0;
 }
 
 .content{
@@ -341,6 +349,34 @@ header .active{
   visibility: hidden;
   opacity: 0;
 }
+.navigation{
+  position: fixed;
+  height: 100vh;
+  right: 1px;
+  width: 220px;
+  margin-top: 20px;
+  visibility: visible;
+  opacity: 1;
+}
+.navigation ul{
+  list-style: none;
+}
+.navigation li{
+  color: #fff;
+  transition: 0.4s;
+  width: 70%;
+}
+.navigation li:hover{
+  letter-spacing: 4px;
+  background: rgb(71, 242, 28);
+  color: #111;
+  
+}
+.nonavigation{
+  visibility: hidden;
+  opacity: 0;
+}
+
 /* .Loading{
 
 } */

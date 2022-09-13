@@ -2,7 +2,7 @@ import React,{Suspense, useState, useRef} from "react"
 import {Canvas,useFrame,useLoader} from "@react-three/fiber"
 import {useSpring,a} from "@react-spring/three"
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
-import {Html, OrbitControls, useScroll, Sky,PerspectiveCamera, Cloud} from "@react-three/drei"
+import {Html, OrbitControls, useScroll, Sky,PerspectiveCamera, Cloud, softShadows,Loader} from "@react-three/drei"
 import {Section} from "../../section"
 import {useSelector} from "react-redux";
 import {Link} from 'react-router-dom';
@@ -10,6 +10,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {faGithub} from '@fortawesome/free-brands-svg-icons';
 import {faSquare, faCircle, faMoon, faStar} from '@fortawesome/free-regular-svg-icons'
 import { MouseParallax, ScrollParallax } from "react-just-parallax";
+
+
+softShadows()
 
 function ModelDesk(){
     const gltf = useLoader(GLTFLoader,"/Object/scene.glb");
@@ -125,7 +128,6 @@ function LandingPage(){
                  <ul className="menu">
                     <li><a href="#">Home</a></li>
                     <li><a href="#">About</a></li>
-                    <li><a href="#">Work</a></li>
                     <li><Link to="Category">Blog</Link></li>
                     <li><Link to="Create">Write</Link></li>
                  </ul>
@@ -166,28 +168,32 @@ function LandingPage(){
               enableZoom={false}
               enablePan={false}
           />
+            <Lights/>
+                <Sky
+                    distance={450000}
+                    sunPosition={[5, 1, 8]}
+                    inclination={0}
+                    azimuth={0.25}
+                />
+                {/* <Cloud
+                    opacity={0.5}
+                    speed={0.4} // Rotation speed
+                    width={10} // Width of the full cloud
+                    depth={1.5} // Z-dir depth
+                    segments={20} // Number of particles
+                    /> */}
+                {/* <Stars radius={150} depth={50} count={4000} factor={8} saturation={0} fade /> */}
           <PerspectiveCamera makeDefault fov={65} position={[0, 0, 4]}>
               <spotLight position={[0, 50, 0]} angle={0.15} penumbra={1} intensity={10} castShadow shadow-mapSize={[2048, 2048]} />
           </PerspectiveCamera>
-              <Lights/>
-              <Sky
-                  distance={450000}
-                  sunPosition={[5, 1, 8]}
-                  inclination={0}
-                  azimuth={0.25}
-              />
-              {/* <Cloud
-                opacity={0.5}
-                speed={0.4} // Rotation speed
-                width={10} // Width of the full cloud
-                depth={1.5} // Z-dir depth
-                segments={20} // Number of particles
-                /> */}
-              {/* <Stars radius={150} depth={50} count={4000} factor={8} saturation={0} fade /> */}
+
               <Suspense fallback={null}>
                   <HTMLModel/>
+
               </Suspense>
+              
           </Canvas>
+          <Loader/>
          
       </div>
 

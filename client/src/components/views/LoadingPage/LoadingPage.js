@@ -1,11 +1,9 @@
 import React from 'react'
+import {useProgress, Html} from '@react-three/drei'
 
 function LoadingPage() {
-    return (
-        <div className="Loading">
-            
-        </div>
-    )
+    const { active, progress, errors, item, loaded, total } = useProgress()
+    return <Html center>{progress} % loaded</Html>
 }
 
 export default LoadingPage
