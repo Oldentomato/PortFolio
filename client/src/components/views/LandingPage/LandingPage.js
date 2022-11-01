@@ -1,4 +1,4 @@
-import React,{Suspense, useState, useRef} from "react"
+import React,{Suspense, useState, useRef, useEffect} from "react"
 import {Canvas,useFrame,useLoader} from "@react-three/fiber"
 import {useSpring,a} from "@react-spring/three"
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
@@ -10,7 +10,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {faGithub} from '@fortawesome/free-brands-svg-icons';
 import {faSquare, faCircle, faMoon, faStar} from '@fortawesome/free-regular-svg-icons'
 import { MouseParallax, ScrollParallax } from "react-just-parallax";
-
+import anime from "animejs";
 
 softShadows()
 
@@ -19,6 +19,9 @@ function ModelDesk(){
     const meshRef = useRef();
     const [hovered, setHovered] = useState(false);
     // const [active, setActive] = useState(false);
+
+
+
     const props = useSpring({
         scale: [8,8,8]
         // scale: hovered ? [2, 2, 2] : [5, 5, 5]
@@ -104,11 +107,59 @@ const Lights = () => {
 
 
 
+  const generatedot = () =>{
+    let dots = [];
+    
+    for(let i =0;i<100;i++){
+        dots[i] = <div key={i} className="element"/>
+    }
+    return dots;
+  }
+
+
 
 function LandingPage(){
 
     const banner = useSelector(state => state);
-    
+
+    useEffect(()=>{
+        // This is default configuration for all the ticks
+        var animation = anime.timeline({
+            targets: '.element',
+            loop: true,
+            easing: "easeInOutExpo",
+            delay: anime.stagger(50,{grid:[10,10],from:'center'})
+          })
+          animation.add({
+              targets:'.element',
+              rotateZ: 180,
+              translateY: anime.stagger(-10,{grid:[10,10],from:'center',axis:'y'}),
+              translateX: anime.stagger(-10,{grid:[10,10],from:'center',axis:'x'}),
+              opacity: 1
+          })
+          .add({
+            borderRadius: 50
+          })
+          .add({
+            scale:0.2,
+            opacity: 0.2,
+          });
+
+          animation.add({
+            rotateZ: 180,
+            translateY: anime.stagger(0,{grid:[10,10],from:'center',axis:'y'}),
+            translateX: anime.stagger(0,{grid:[10,10],from:'center',axis:'x'}),
+            opacity: 1
+          })
+          .add({
+            scale:1,
+            borderRadius: 0,
+          })
+          .add({
+            rotateZ: -90
+          });
+      },[]);
+
     return(
         <>
             <section className={banner}>
@@ -116,13 +167,17 @@ function LandingPage(){
                     <div className="contentBx">
                         <h4>Hello,</h4>
                         <h2>I'm JoWooSung</h2>
-                        <h3>Professional Web Developer</h3>
+                        <h3>Professional ML Enginner</h3>
                         <p>
-                            I can develop front-end and back-end, and also develop apps, unity, and DeepLearning.
+                            I can develop front-end and back-end, and also develop apps, unity, and MLOps.
                         </p>
                         <a href='http://polaroid.kro.kr'>My WebProject</a>
                         <a href='#'>Contact Me</a>
                     </div>
+                 </div>
+
+                 <div className="container">
+                    {generatedot()}
                  </div>
 
                  <ul className="menu">

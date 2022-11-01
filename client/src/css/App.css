@@ -236,7 +236,7 @@ header .active{
 
 .content{
   position: relative;
-  z-index: 2;
+  z-index: 4;
   width: 100%;
   display: flex;
   justify-content: flex-start;
@@ -313,7 +313,7 @@ header .active{
   flex-direction: column;
   padding-left: 100px;
   transition: 0.5s;
-  z-index: 2;
+  z-index: 4;
   visibility: hidden;
   opacity: 0;
 }
@@ -375,6 +375,25 @@ header .active{
 .nonavigation{
   visibility: hidden;
   opacity: 0;
+}
+
+.container{
+  position: relative;
+  left: 142px;
+  min-width: 300px;
+  width: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.container .element{
+  position: relative;
+  width: 30px;
+  height: 30px;
+  background: rgb(242, 242, 242);
+  scale: 0.75;
 }
 
 /* .Loading{
