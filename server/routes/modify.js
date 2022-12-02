@@ -10,7 +10,8 @@ router.post('/modifypost',(req,res)=>{
     Board.findByIdAndUpdate({_id: req.body.BoardID},
         {   title: req.body.title,
             content: req.body.content,
-            type: req.body.type},
+            type: req.body.type,
+            file: req.body.file},
             (err,result)=>{
                 if(err) return res.json({success: false, err})
                 return res.status(200).json({success:true})

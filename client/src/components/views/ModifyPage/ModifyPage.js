@@ -48,6 +48,7 @@ function ModifyPage() {
                     content={location.state.content}
                     type={location.state.type}
                     id = {BoardID}
+                    img = {location.state.img}
                 />
             </>
         )

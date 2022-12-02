@@ -31,10 +31,10 @@ function PostComponent(props) {
     const [title, settitle] = useState(props.page==="Modify" ? props.title : "")
     const [content, setcontent] = useState(props.page==="Modify" ? props.content : "")
     const [type, settype] = useState(props.page==="Modify" ? props.type : "")
-    const [isImage, setisImage] = useState(false)
-    const [File, setFile] = useState([])
+    const [isImage, setisImage] = useState(props.img === undefined ? false : true)
+    const [File, setFile] = useState(props.img === undefined ? [] : props.img)
     const [ImgPosCount, setImgPosCount] = useState(0)
-    const [UploadImgCount, setUploadImgCount] = useState(0)
+    const [UploadImgCount, setUploadImgCount] = useState(props.img === undefined ? 0 : props.img.length)
 
     const UploadCountHandler = (count) =>{ //이미지가 삭제 됐을 때 실행
         setUploadImgCount(count - 1)
@@ -193,9 +193,18 @@ function PostComponent(props) {
         }
 
     }
+//수정페이지에서 사진 삭제 버그 고쳐야함
+    useEffect(()=>{
+        //페이지 진입 시 이미지들 가져오기
+        if(props.img !== undefined){
+            props.img.forEach((i)=>{
+                SetImageOrder(i.filepath,i.fileorder);
+            })
+        }
+    },[])
 
     useEffect(()=>{
-        CheckImgCount()
+        CheckImgCount()        
     },[content])
 
   return (
