@@ -21,3 +21,5 @@ mongoose.connect(config.mongoURI,{
   .catch(err=> console.log(err))
 
 app.listen(port,()=>{ console.log(`PorfolioApp listening on port ${port}!`)})
+
+module.exports = app
