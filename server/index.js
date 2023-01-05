@@ -6,6 +6,7 @@ const config = require('./config/key.js')
 const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
 
+app.get('/test',(req,res)=>res.send('TEST'))
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
