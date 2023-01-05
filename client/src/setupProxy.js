@@ -7,7 +7,7 @@ module.exports = function(app){
     app.use(
         '/api',
         createProxyMiddleware({
-            target: 'https://portfolio-server-eta-green.vercel.app/',
+            target: 'https://portfolio-server-eta-green.vercel.app',
             changeOrigin: true
         })
     )
