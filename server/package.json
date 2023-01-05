@@ -4,11 +4,7 @@
   "description": "my portfloio",
   "main": "index.js",
   "scripts": {
-    "backend": "nodemon server/index.js",
-    "dev": "concurrently \"npm run backend\" \"npm run start --prefix client\""
-  },
-  "engines": {
-    "node": "16.x"
+    "backend": "node index.js"
   },
   "author": "Jowoosung",
   "license": "ISC",
@@ -19,12 +15,9 @@
     "cookie-parser": "^1.4.5",
     "express": "^4.17.1",
     "fs": "^0.0.1-security",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "mongoose": "^6.0.7",
     "multer": "^1.4.4",
     "path": "^0.12.7"
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.14"
   }
 }

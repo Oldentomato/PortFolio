@@ -7,7 +7,7 @@ module.exports = function(app){
     app.use(
         '/api',
         createProxyMiddleware({
-            target: 'http://localhost:5000',
+            target: 'portfolio-rouge-five-95.vercel.app',
             changeOrigin: true
         })
     )
