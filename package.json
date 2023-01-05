@@ -7,6 +7,9 @@
     "backend": "nodemon server/index.js",
     "dev": "concurrently \"npm run backend\" \"npm run start --prefix client\""
   },
+  "engines": {
+    "node": "16.x"
+  },
   "author": "Jowoosung",
   "license": "ISC",
   "dependencies": {
